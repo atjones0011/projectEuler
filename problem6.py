@@ -1,3 +1,4 @@
+import math
 import sys
 
 try:
@@ -8,10 +9,8 @@ except:
 
 sumOfSquares = 0
 for x in range(startNumber, endNumber + 1):
-    sumOfSquares += x * x
+    sumOfSquares += pow(x, 2)
 
-squareOfSums = 0
-for x in range(startNumber, endNumber + 1):
-    squareOfSums += x
+squareOfSums = pow(sum(range(startNumber, endNumber + 1)), 2)
 
-print squareOfSums * squareOfSums - sumOfSquares
+print squareOfSums - sumOfSquares
