@@ -32,8 +32,6 @@ for i in divArray[:]:
             except:
                 continue
 
-print divArray
-
 currPos = max(divArray)
 
 while True:
