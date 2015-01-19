@@ -1,8 +1,39 @@
 import sys
 
+'''
+Returns a trimmed down list of numbers to speed up computation
+'''
+def getTrimmedList(lowerBound, upperBound):
+    divArray = range(lowerBound, upperBound + 1)
+
+    # Must use copy of array due to manipulation of original
+    for i in divArray[:]:
+        # If index == 0, decrementing will cause entire array to be used.
+        # Pass 1-element array, instead
+        if divArray.index(i) == 0:
+            position = 0
+        else:
+            position = divArray.index(i) - 1
+
+        # Removing items from divArray to limit calculations
+        for j in divArray[:position]:
+            if i % j == 0:
+                try:
+                    divArray.remove(j)
+                except:
+                    continue
+
+    return divArray
+
+'''
+Returns a list of modulus results of x mod values
+'''
 def modulus(values, x):
     return {x % i for i in values}
 
+'''
+Main execution
+'''
 try:
     lowerBound = int(sys.argv[1])
     upperBound = int(sys.argv[2])
@@ -12,25 +43,7 @@ except:
 if lowerBound > upperBound:
     sys.exit("lowerBound must be smaller than upperBound.")
 
-divArray = range(lowerBound, upperBound + 1)
-
-# Must use copy of array due to manipulation of original
-for i in divArray[:]:
-
-    # If index == 0, decrementing will cause entire array to be used.
-    # Pass 1-element array, instead
-    if divArray.index(i) == 0:
-        position = 0
-    else:
-        position = divArray.index(i) - 1
-
-    # Removing items from divArray to limit calculations
-    for j in divArray[:position]:
-        if i % j == 0:
-            try:
-                divArray.remove(j)
-            except:
-                continue
+divArray = getTrimmedList(lowerBound, upperBound)
 
 currPos = max(divArray)
 
